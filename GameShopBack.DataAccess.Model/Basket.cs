@@ -8,7 +8,6 @@ namespace GameShopBack.DataAccess.Model
 {
     public class Basket : Entity
     {
-        public List<Game>? Games { get; set; }
-        public int TotalPrice { get; set; } 
+        public ICollection<GameBasket> GameBaskets { get; set; }
     }
 }

@@ -23,6 +23,13 @@ builder.Services.AddDbContext<GameContext>(options =>
 });
 
 builder.Services.AddScoped<GameRepository>();
+builder.Services.AddScoped<GameBasketRepository>();
+builder.Services.AddScoped<BasketRepository>();
+
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
 var app = builder.Build();
 
@@ -32,6 +39,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("GameOrigins");
 
 app.UseHttpsRedirection();
 

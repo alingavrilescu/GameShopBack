@@ -34,14 +34,19 @@ namespace GameShopBack.Controllers
             return this._gameRepository.GetGameById(id);
         }
 
-        //public Game AddGameToBasket(Guid id)
-        //{
-        //    var game = _gameRepository.GetGameById(id);
-        //    var basket = _basketRepository.GetBasketById("asdasdasda");
-        //    if (basket.Games.Any(g=>g.id==id))
-        //    {
-
-        //    }
-        //}
+        [HttpPost]
+        public Game AddGame(GameViewModel toAdd)
+        {
+            var game = new Game
+            {
+                Name = toAdd.Name,
+                ImgUrl = toAdd.ImgUrl,
+                Description = toAdd.Description,
+                Category = toAdd.Category,
+                Price = toAdd.Price,
+                ProductCount = toAdd.ProductCount
+            };
+            return _gameRepository.AddGame(game);
+        }
     }
 }

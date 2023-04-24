@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameShopBack.DataAccess.EntityFramework.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20230312131206_initialmigration")]
-    partial class initialmigration
+    [Migration("20230313160603_migration")]
+    partial class migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,9 +29,6 @@ namespace GameShopBack.DataAccess.EntityFramework.Migrations
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
 
                     b.HasKey("id");
 
@@ -69,6 +66,62 @@ namespace GameShopBack.DataAccess.EntityFramework.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("GameShopBack.DataAccess.Model.GameBasket", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BasketId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GameId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("GameBasket");
+                });
+
+            modelBuilder.Entity("GameShopBack.DataAccess.Model.GameBasket", b =>
+                {
+                    b.HasOne("GameShopBack.DataAccess.Model.Basket", "Basket")
+                        .WithMany("GameBasket")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GameShopBack.DataAccess.Model.Game", "Game")
+                        .WithMany("GameBaskets")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("GameShopBack.DataAccess.Model.Basket", b =>
+                {
+                    b.Navigation("GameBasket");
+                });
+
+            modelBuilder.Entity("GameShopBack.DataAccess.Model.Game", b =>
+                {
+                    b.Navigation("GameBaskets");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,5 +12,6 @@ namespace GameShopBack.DataAccess.EntityFramework
 
         DbSet<Game> Games{ get; set; }
         DbSet<Basket> Baskets { get; set; }
+        DbSet<GameBasket> GameBaskets { get; set; }
     }
 }

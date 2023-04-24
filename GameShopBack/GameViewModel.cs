@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GameShopBack.DataAccess.Model
+﻿namespace GameShopBack
 {
-    public class Game: Entity
+    public class GameViewModel
     {
         public string Name { get; set; }
         public string ImgUrl { get; set; }
@@ -14,6 +8,5 @@ namespace GameShopBack.DataAccess.Model
         public string Category { get; set; }
         public int Price { get; set; }
         public int ProductCount { get; set; }
-        public ICollection<GameBasket> GameBaskets { get; set; }
     }
 }

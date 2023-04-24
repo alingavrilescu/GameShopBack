@@ -35,5 +35,12 @@ namespace GameShopBack.DataAccess.EntityFramework
             }
             return gameToReturn;
         }
+
+        public Game AddGame(Game toAdd)
+        {
+            var game = _dbcontext.Set<Game>().Add(toAdd);
+            _dbcontext.SaveChanges();
+            return game.Entity;
+        }
     }
 }
